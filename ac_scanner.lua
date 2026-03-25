@@ -1,16 +1,13 @@
  Citizen.CreateThread(function()
-    -- Wait a moment for resources to fully load (optional)
     Wait(2000)
 
     local numResources = GetNumResources()
     local acDetected = false
 
-    print("^7[AC Scanner] ^5Starting scan for active anticheats...^7")
 
     for i = 0, numResources - 1 do
         local resourceName = GetResourceByFindIndex(i)
 
-        -- Skip this script's own resource (optional)
         if resourceName == GetCurrentResourceName() then continue end
 
         -- Check for FiveGuard
@@ -31,6 +28,20 @@
         local fireacFile = LoadResourceFile(resourceName, "fire-config.lua")
         if fireacFile then
             print("^1[FireAC]^3 Detected in Resource: (^9"..resourceName.."^3)")
+            acDetected = true
+        end
+
+        -- Check for ElectronAC
+        local electronacFile = LoadResourceFile(resourceName, ".key")
+        if electronacFile then
+            print("^1[ElectronAC]^3 Detected in Resource: (^9"..resourceName.."^3)")
+            acDetected = true
+        end
+
+        -- Check for ReaperV4
+        local reaperv4File = LoadResourceFile(resourceName, "key.tebex")
+        if reaperv4File then
+            print("^1[ReaperV4]^3 Detected in Resource: (^9"..resourceName.."^3)")
             acDetected = true
         end
 
